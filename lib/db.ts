@@ -102,11 +102,24 @@ export interface ChatHistory<TInput = unknown, TOutput = unknown> {
   metadata?: Record<string, unknown>
 }
 
+export type IdeaPriority = 'high' | 'medium' | 'low'
+
+export interface Idea {
+  id?: number
+  content: string
+  priority: IdeaPriority
+  dueDate?: string
+  completed: boolean
+  createdAt: Date
+  updatedAt: Date
+}
+
 // Define the database
 export class SidejotDB extends Dexie {
   plans!: Table<Plan>
   timerSessions!: Table<TimerSession>
   chatHistory!: Table<ChatHistory>
+  ideas!: Table<Idea>
 
   private sessionManager = SessionManager.getInstance()
 
@@ -118,6 +131,14 @@ export class SidejotDB extends Dexie {
       timerSessions:
         '++id, type, startTime, endTime, endType, sessionId, lastHeartbeat, content',
       chatHistory: '++id, type, timestamp, title, input, output, metadata',
+    })
+
+    this.version(6).stores({
+      plans: '++id, content, date, lastUpdated',
+      timerSessions:
+        '++id, type, startTime, endTime, endType, sessionId, lastHeartbeat, content',
+      chatHistory: '++id, type, timestamp, title, input, output, metadata',
+      ideas: '++id, priority, dueDate, completed, createdAt, updatedAt',
     })
   }
 
