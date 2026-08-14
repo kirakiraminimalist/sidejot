@@ -7,30 +7,12 @@ import { Toaster } from '@/components/ui/sonner'
 import { META_THEME_COLORS, siteConfig } from '@/config/site'
 import { cn } from '@/lib/utils'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import { Suspense } from 'react'
 
-const geist = Geist({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-  preload: true,
-})
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-  preload: true,
-})
-
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
+  title: '念头 · 轻松收好每一个想法',
   metadataBase: new URL(siteConfig.url),
-  description: siteConfig.description,
+  description: '一个为容易分心的大脑设计的极简想法收集箱。',
   keywords: [
     'Task Planning',
     'Pomodoro Timer',
@@ -84,7 +66,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="zh-CN" suppressHydrationWarning>
         <head>
           <link
             rel="icon"
@@ -120,8 +102,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             'min-h-screen bg-background font-sans antialiased',
-            geist.variable,
-            geistMono.variable,
           )}
         >
           <ThemeProvider
